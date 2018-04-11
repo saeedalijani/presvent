@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block head_title %}خانه{% endblock %}
+
+{% block content %}
+    <div class="ui grid">
+        <div class="seven wide column">
+            <div class="ui raised segment">
+                <h4 class="ui header">توضیحات سایت</h4>
+                <p>
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها
+                    و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و
+                    آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه
+                    ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که
+                    تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی
+                    دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                </p>
+            </div>
+            <div class="ui raised segment">
+                <h4 class="ui header">محل برگزاری</h4>
+                <p>
+                    تهران، تهران، خیابان اول، کوچهٔ دوم، پلاک ۳
+                </p>
+                <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d51827.438352921155!2d51.47298295!3d35.7209331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1521846460176"
+                        width="500"
+                        height="300"
+                        frameborder="0"
+                        style="border:0"
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+        <div class="nine wide column">
+            <div class="ui raised segment">
+                <h4>جلسات اخیر</h4>
+                <div class="ui list">
+                    {% for session in sessions %}
+                    <div class="item">
+                        <i class="info icon"></i>
+                        <div class="content">
+                            <a class="header" href="/event/{{ session.id }}">{{ session.title }}</a>
+                            <div class="description">{{ session.session_datetime.date }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <a class="ui button" href="/event/">فهرست همهٔ جلسات</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

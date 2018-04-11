@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load avatar_tags %}
+
+{% load i18n %}
+
+{% block head_title %}پروفایل{% endblock %}
+
+{% block content %}
+    <div class="ui raised segment">
+    <h3>مشخصات اولیه</h3>
+    <div class="ui centered card">
+  <div class="image">
+    <div class="ui dimmer">
+<div class="content">
+  <div class="center">
+    <a href="update" class="ui inverted button">ویرایش</a>
+  </div>
+</div>
+    </div>
+    {% avatar user %}
+  </div>
+  <div class="content">
+    <div class="center aligned header">{{ user.username }}</div>
+    <div class="description">
+         <div class="ui list">
+             <div class="item">نام: {{ user.first_name }}</div>
+             <div class="item">نام خانوادگی: {{ user.last_name }}</div>
+             <div class="item">ایمیل: {{ user.email }}</div>
+         </div>
+    </div>
+  </div>
+</div>
+</div>
+    <div class="ui raised segment">
+    <h3>ارائه‌های ثبت‌شده توسط کاربر</h3>
+    <div class="ui cards">
+    {%  for presentation in presentations %}
+    <div class="ui card">
+  <div class="content">
+    <div class="header">{{ presentation.title }}</div>
+  </div>
+  <div class="content">
+    <h4 class="ui sub header">{{ presentation.session }}</h4>
+    <div class="ui small feed">
+      <div class="event">
+        <div class="content">
+            {{ presentation.description }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="extra content">
+    <a href="/event/presentation/{{ presentation.id }}/update/" class="ui button">ویرایش ارائه</a>
+  </div>
+</div>
+    {% endfor %}
+    </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript">
+$(document)
+  .ready(function(){
+    $('.star.rating')
+.rating()
+    ;
+    $('.card .dimmer')
+.dimmer({
+  on: 'hover'
+})
+    ;
+  })
+;
+</script>
+{% endblock %}

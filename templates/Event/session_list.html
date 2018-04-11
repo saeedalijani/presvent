@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+
+{% load i18n %}
+
+{% block head_title %}فهرست جلسات{% endblock %}
+
+{% block content %}
+    <div class="ui raised segment">
+    <h1>فهرست جلسات</h1>
+    <div class="ui cards">
+    {% for object in page_obj %}
+        <div class="card">
+    <div class="content">
+      <div class="header">{{ object.title }}</div>
+      <div class="description">
+        {{ object.description }}
+      </div>
+    </div>
+    <a href="{{ object.id }}" class="ui bottom attached button">
+      جزییات جلسه
+    </a>
+  </div>
+
+    {% endfor %}
+    </div>
+    <div class="ui center aligned basic segment">
+        <div class="ui pagination menu">
+            {% if page_obj.has_previous %}
+                <div class="item">
+                <a href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+                </div>
+            {% endif %}
+
+            <div class="disabled item">
+                صفحهٔ {{ page_obj.number }} از {{ paginator.num_pages }}.
+            </div>
+
+            {% if page_obj.has_next %}
+                <div class="item">
+                <a href="?page={{ page_obj.next_page_number }}">بعدی</a>
+                </div>
+            {% endif %}
+    </div>
+    </div>
+    </div>
+{% endblock %}

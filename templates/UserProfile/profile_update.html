@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block head_title %}ویرایش پروفایل{% endblock %}
+
+{% block content %}
+    <h1>ویرایش پروفایل</h1>
+
+    <div class="ui one column centered grid">
+        <div class="ui compact segment">
+<form class="ui form" action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input class="ui button" type="submit" value="اعمال تغییرات" />
+</form>
+    </div>
+    </div>
+{% endblock %}

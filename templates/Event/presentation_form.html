@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block head_title %}درخواست ثبت ارائه{% endblock %}
+
+{% block content %}
+
+    <h1>درخواست ثبت ارائه</h1>
+
+    <div class="ui segment">
+        <form class="ui form" method="post">
+            {% csrf_token %}
+            <div class="three fields">
+                <div class="field">
+                    <label>عنوان ارائه:</label>
+                    {{ form.title }}
+                </div>
+                <div class="field">
+                    <label>نوع ارائه:</label>
+                    {{ form.presentation_type }}
+                </div>
+                <div class="field">
+                    <label>مدت زمان ارائه:</label>
+                    {{ form.duration }}
+                </div>
+            </div>
+            <div class="two fields">
+            <div class="field">
+                <label>توضیحات:</label>
+                {{ form.description }}
+            </div>
+            <div class="field">
+                <label>تجهیزات مورد نیاز:</label>
+                {{ form.equipment }}
+            </div>
+            </div>
+            <div class="four fields">
+                <div class="field">
+                    <label>ایمیل:</label>
+                    {{ form.email }}
+                </div>
+                <div class="field">
+                    <label>شمارهٔ تلفن همراه:</label>
+                    {{ form.phone_number }}
+                </div>
+                <div class="field">
+                    <label>مقاله:</label>
+                    {{ form.article_attachment }}
+                </div>
+                <div class="field">
+                    <label>اسلایدها:</label>
+                    {{ form.slides_attachment }}
+                </div>
+            </div>
+             <div class="ui button" tabindex="0">ثبت ارائه</div>
+        </form>
+    </div>
+
+{% endblock %}

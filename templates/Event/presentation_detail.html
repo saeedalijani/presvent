@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load avatar_tags %}
+
+{% load i18n %}
+
+{% block head_title %}ارائهٔ {{ object.title }} برای {{ object.session }}{% endblock %}
+
+{% block content %}
+
+    <div class="ui piled segment">
+        <a class="ui green right ribbon label">{{ object.presentation_type }}</a>
+        <h4>عنوان ارائه: {{ object.title }}</h4>
+        <a href="/event/{{ object.session.id }}" class="sub header">{{ object.session }}</a>
+        <div class="sub header">ارائه‌دهنده: {{ object.user.first_name }} {{ object.user.last_name }}</div>
+    {% if object.start_time and object.end_time %}
+        <div class="sub header">زمان ارائه: {{ object.start_time }} تا {{ object.end_time }}</div>
+    {% endif %}
+        <br>
+        <p>
+            {{ object.description }}
+        </p>
+        {% if  object.article_attachment %}
+            <a class="ui primary button" href="/{{ object.article_attachment.url }}" target="_blank">دانلود مقالهٔ این
+                ارائه</a>
+        {% endif %}
+        {% if  object.slides_attachment %}
+            <a class="ui primary button" href="/{{ object.slides_attachment.url }}" target="_blank">دانلود اسلایدهای این
+                ارائه</a>
+        {% endif %}
+    </div>
+
+    <div class="ui segment">
+    <h3>نظرات راجع به این جلسه:</h3>
+    <div class="ui divided items">
+        {% for comment in comments %}
+  <div class="item">
+    <div class="ui tiny image">
+{#      <img src="/images/avatar/large/stevie.jpg">#}
+        {% avatar comment.user %}
+    </div>
+    <div class="content">
+      <div class="header">{{ comment.user.first_name }} {{ comment.user.last_name }}</div>
+      <div class="description">
+        <p>{{ comment.text }}</p>
+      </div>
+    </div>
+  </div>
+        {% endfor %}
+    <div class="item">
+    {% if user.is_authenticated %}
+    <div class="ui tiny image">
+        {% avatar user %}
+    </div>
+    {% endif %}
+    <div class="content">
+      <div class="description">
+          {% if user.is_authenticated %}
+          <form class="ui form" method="post" action="/event/presentation/{{ object.id }}/comment/">
+              {% csrf_token %}
+              {{ comment_form.as_p }}
+              <button class="ui button">ثبت</button>
+          </form>
+          {% else %}
+              <p>برای نظر دادن <a href="{% url 'account_login' %}?next={{ request.path }}">وارد شوید.</a></p>
+          {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+
+{% endblock %}
